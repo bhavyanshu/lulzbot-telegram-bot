@@ -26,16 +26,16 @@ Version: 0.0.1
 | /calc expression          | Calculate math expressions 				   | /calc 2+2 					|
 
 
-> Note that some features on the actual bot hosted on telegram will be missing from here. Like bot administration commands and commands meant for my own personal use. However, they do not break this code nor do they in any way affect the working on this code. They are completely unrelated modules. On request, I can explain how you can write bot administration commands for Telegram bot API.
+> Note that some features of the actual bot @lulzbot registered on telegram will be missing from here. Like bot administration commands and commands meant for my own personal use. However, they do not break this code nor do they in any way affect the working on this code. They are completely unrelated modules. On request, I can explain how you can write bot administration commands for Telegram bot API.
 
 ##How to use
 ------------
-1. First open data/config.ini file and add all the required API keys from various social media sites.
+1. First open data/config.ini file and add all the required API keys from various social media sites. For telegram token, contact @BotFather on telegram and create a new bot there. @BotFather will reply provide you the token once the bot is created.
 2. Then you need to make sure you have all the required dependencies. **Python 2.7 is required**.
 
-    pip install -r requirements.txt
+        $ pip install -r requirements.txt
 
-3. For debugging, run using `python bot.py`
+3. For debugging, run using `python bot.py`. If there is a crash, it won't restart.
 4. For production mode, run `./botmon.sh` which will restart bot if it crashes. 
 
 ##LICENSE
