@@ -125,7 +125,7 @@ def echo():
 
                 '''Microsoft translator'''
                 if '/translate' in message:
-                    message = message.replace('/translate','')
+                    message = message.replace('/translate','').encode('utf8')
                     message_broken = shlex.split(message)
                     error = 'Not enough parameters. Use, /translate en hi "Hello world" or /translate help to know more'
                     if not len(message_broken)<1:
