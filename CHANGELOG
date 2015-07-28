@@ -1,0 +1,18 @@
+#CHANGELOG
+
+v0.0.3
+
+* Fixes #1 #2
+* Threads will upload the images now. It will be a background task so bot can still listen to other commands.
+* Bing will return top 4 results links instead of just one image.
+
+v0.0.2
+
+* Minor bug fixes. 
+* Added Twitter search by hashtag & twitter trends by country name
+* Twitter will not return with original URLs to the tweets which can be opened in browser or Twitter app
+* Added bing image search 
+
+v0.0.1
+
+* Initial Release

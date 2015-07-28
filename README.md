@@ -1,11 +1,10 @@
 # lulzbot Telegram Bot - <a href="https://telegram.me/lulzbot">@lulzbot</a>
 
-> This bot is using Telegram bot API. It has lot of features. The concept is driven from IRC bot. Custom keyboard is only used for games like "HotOrNot". Rest of the stuff is purely command based.
+> This bot is using Telegram bot API. It has lot of features. The concept is driven from IRC bot that I used to use for my IRC channels. Look at the commands below to know how to use it.
 
-Version: 0.0.2
+**Version**: 0.0.3
 
-
-##Features (Updated as of v0.0.2)
+##Features (Updated as of v0.0.3)
 ----------
 
 

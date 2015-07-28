@@ -3,7 +3,7 @@
 
 __author__  = "Bhavyanshu Parasher"
 __license__ = "GPL"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 """bot.py - Main entry point. This handles all bot functions."""
 
@@ -32,6 +32,8 @@ from giphypop import translate
 
 # -- Local Imports -- #
 from config import config
+from uploadthread import UploadThread
+
 from botmodules.google import google
 from botmodules.wiki import wiki
 from botmodules.weather import weather
@@ -147,7 +149,8 @@ def echo():
                     bot.sendChatAction(chat_id=chat_id,action=telegram.ChatAction.TYPING)
                     replacer = {'/image':'','/img':''}
                     search_term = replace_all(message,replacer)
-                    bot.sendPhoto(chat_id=chat_id, photo=bingsearch(search_term,'Image'), caption='Powered by Bing')
+                    pic_link = bingsearch(search_term,'Image')
+                    bot.sendMessage(chat_id=chat_id,text=pic_link)
 
                 '''Microsoft translator'''
                 if '/translate' in message:
@@ -189,7 +192,9 @@ def echo():
                     data = xmltodict.parse(data)
                     piclink =  data['response']['data']['images']['image']['url']
                     source_url = data['response']['data']['images']['image']['source_url']
-                    bot.sendPhoto(chat_id=chat_id, photo=piclink, caption=source_url)
+                    threadobjcats = UploadThread(bot,chat_id,piclink,caption=source_url)
+                    threadobjcats.setName('catsthread')
+                    threadobjcats.start()
 
                 # Don't need an API key
                 
@@ -213,6 +218,7 @@ def echo():
                         if ("Cannot acces link!" in reply):
                             reply="No wikipedia article on that but got some google results for you \n"+google(message)
                             bot.sendMessage(chat_id=chat_id,text=reply)
+
                 '''Weather by city,state'''
                 if '/weather' in message:
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
@@ -241,7 +247,9 @@ def echo():
                         print img.fixed_height.downsampled.url
                         bot.sendMessage(chat_id=chat_id,text='Hang in there. Fetching gif..-Powered by GIPHY!')
                         bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.UPLOAD_PHOTO)
-                        bot.sendDocument(chat_id=chat_id, document=img.fixed_height.downsampled.url.encode('utf-8'))
+                        threadobjgiphy = UploadThread(bot,chat_id,img.fixed_height.downsampled.url.encode('utf-8'))
+                        threadobjgiphy.setName('giphythread')
+                        threadobjgiphy.start()
 
                 '''Basic calculator'''
                 if '/calc' in message:
