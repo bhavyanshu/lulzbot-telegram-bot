@@ -3,7 +3,7 @@
 
 __author__  = "Bhavyanshu Parasher"
 __license__ = "GPL"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 """bot.py - Main entry point. This handles all bot functions."""
 
@@ -15,6 +15,7 @@ import math
 import pickle
 import os
 import shlex
+import random
 
 # -- Third Party Imports -- #
 import telegram
@@ -35,7 +36,8 @@ from botmodules.google import google
 from botmodules.wiki import wiki
 from botmodules.weather import weather
 from botmodules.youtube import youtube
-from botmodules.twitter import twitter
+from botmodules.twitter import twitter,twittertrends,twittersearch
+from botmodules.bingsearch import bingsearch
 from botmodules.insta import insta,insta_tag
 from botmodules.github import gitfeed
 from botmodules.translate import btranslate
@@ -56,11 +58,14 @@ help="""lulzbot is a bot created by @bhavyanshu - https://github.com/bhavyanshu/
 6 /insta username Get posts of instagram user /insta magnumphotos \n
 7 /hon Get random Instagram post and start HotOrNot /hon or /hotornot \n
 8 /tw username Get tweets of twitter user /tw nasa \n
-9 /yt keyword string Search youtube for video /yt Iron Maiden \n
-10 /cats Get a random cat pic /cats \n
-11 /weather city,state Get weather update for city /weather paris \n
-12 /giphy keyword Get gif from giphy /gif awesome \n
-13 /calc expression Calculate math expressions /calc 2+2"""
+9 /tt countryname , get trending topics by country, ex /tt india \n
+10 /ts #hashtag , get latest tweets by hashtag. ex /ts #Privacy \n
+11 /yt keyword string Search youtube for video /yt Iron Maiden \n
+12 /cats Get a random cat pic /cats \n
+13 /weather city,state Get weather update for city /weather paris \n
+14 /giphy keyword Get gif from giphy /gif awesome \n
+15 /img string, Get relevant image, /img give that man a cookie \n
+16 /calc expression Calculate math expressions /calc 2+2"""
 
 try:
     LAST_UPDATE_ID = bot.getUpdates()[-1].update_id
@@ -106,6 +111,20 @@ def echo():
                     else:
                         bot.sendMessage(chat_id=chat_id,text=twitter(username).encode('utf8'))
 
+                '''Gets twitter trends by country /tt countryname, ex /tt India '''
+                if '/tt' in message:
+                    bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
+                    replacer = {'/tt ':''}
+                    place = replace_all(message,replacer)
+                    bot.sendMessage(chat_id=chat_id,text=twittertrends(place).encode('utf8'))
+
+                '''Search twitter for top 4 related tweets. /ts #Privacy'''
+                if '/ts' in message:
+                    bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
+                    replacer = {'/ts ':''}
+                    search_term = replace_all(message,replacer)
+                    bot.sendMessage(chat_id=chat_id,text=twittersearch(search_term).encode('utf8'))
+
                 '''Instagram latest posts of user'''
                 if '/insta' in message or '/instagram' in message:
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
@@ -122,6 +141,13 @@ def echo():
                     custom_keyboard = [[ telegram.Emoji.THUMBS_UP_SIGN, telegram.Emoji.THUMBS_DOWN_SIGN ]]
                     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard,resize_keyboard=True,one_time_keyboard=True)
                     bot.sendMessage(chat_id=chat_id,text=insta_tag(),reply_markup=reply_markup)
+
+                '''Bing Image Search'''
+                if '/image' in message or '/img' in message:
+                    bot.sendChatAction(chat_id=chat_id,action=telegram.ChatAction.TYPING)
+                    replacer = {'/image':'','/img':''}
+                    search_term = replace_all(message,replacer)
+                    bot.sendPhoto(chat_id=chat_id, photo=bingsearch(search_term,'Image'), caption='Powered by Bing')
 
                 '''Microsoft translator'''
                 if '/translate' in message:

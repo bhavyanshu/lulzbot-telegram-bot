@@ -2,10 +2,10 @@
 
 > This bot is using Telegram bot API. It has lot of features. The concept is driven from IRC bot. Custom keyboard is only used for games like "HotOrNot". Rest of the stuff is purely command based.
 
-Version: 0.0.1
+Version: 0.0.2
 
 
-##Features
+##Features (Updated as of v0.0.2)
 ----------
 
 
@@ -19,10 +19,13 @@ Version: 0.0.1
 | /insta username           | Get posts of instagram user 				   | /insta magnumphotos		|
 | /hon			  		    | Get random Instagram post and start HotOrNot | /hon or /hotornot 			|
 | /tw username              | Get tweets of twitter user 				   | /tw nasa					|
+| /tt country               | Get trending tags by country 				   | /tt India					|
+| /ts keyword               | Get latest tweets by keyword (Hashtag)	   | /ts #privacy				|
 | /yt keyword string	    | Search youtube for video 					   | /yt Iron Maiden			|
 | /cats			  		    | Get a random cat pic 						   | /cats						|
 | /weather city,state       | Get weather update for city 				   | /weather paris				|
 | /giphy keyword            | Get gif from giphy 						   | /gif awesome				|
+| /img keyword              | Get topmost bing image search result		   | /img give that man a cookie|
 | /calc expression          | Calculate math expressions 				   | /calc 2+2 					|
 
 
