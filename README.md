@@ -2,9 +2,9 @@
 
 > This bot is using Telegram bot API. It has lot of features. The concept is driven from IRC bot that I used to use for my IRC channels. Look at the commands below to know how to use it.
 
-**Version**: 0.0.3
+**Version**: 0.0.4
 
-##Features (Updated as of v0.0.3)
+##Features (Updated as of v0.0.4)
 ----------
 
 

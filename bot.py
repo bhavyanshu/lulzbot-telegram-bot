@@ -3,7 +3,8 @@
 
 __author__  = "Bhavyanshu Parasher"
 __license__ = "GPL"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
+__credits__ = ['fukouda']
 
 """bot.py - Main entry point. This handles all bot functions."""
 
@@ -255,18 +256,17 @@ def echo():
                 if '/calc' in message:
                     head, sep, tail = message.partition('/')
                     input_nums = tail.replace('calc','')
+                    input_nums = input_nums.replace('\'','')
+                    finalexp = shlex.split(input_nums)
+                    exp = finalexp[0]
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
-                    error = 'Wrong usage. Do not add any alphabet after or in between math expression. Usage, /calc 2+2'
-                    if not input_nums:
+                    error = 'You think I can compute apple+mongo? Don\'t add alphabet in between please. Use like, /calc 2+2-5(4+8)'
+                    if not exp:
                         bot.sendMessage(chat_id=chat_id,text='Y u no type math expression? >.<')
-                    elif input_nums[-1].isdigit() or input_nums[-1].endswith((')')):
-                        bot.sendMessage(chat_id=chat_id,text=calculate(input_nums))
-                    elif re.search('[a-zA-Z]', input_nums):
-                        bot.sendMessage(chat_id=chat_id,text=error)
-                    elif any(c.isalpha() for c in input_nums):
+                    elif re.search('[a-zA-Z]', exp):
                         bot.sendMessage(chat_id=chat_id,text=error)
                     else:
-                        bot.sendMessage(chat_id=chat_id,text=error)
+                        bot.sendMessage(chat_id=chat_id,text=calculate(exp))
 
                 # Updates global offset to get the new updates
                 LAST_UPDATE_ID = update.update_id
