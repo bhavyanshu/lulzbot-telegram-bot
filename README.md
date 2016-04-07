@@ -15,8 +15,7 @@
 | /wiki keyword		  	    | Lookup for wikipedia article 				   | /wiki Anaconda				|
 | /github username	  	    | Get recent activity of user 				   | /github Bhavyanshu 		|
 | /translate from to "strng"| Microsoft translate						   | /translate en hi "I'm good"|
-| /insta username           | Get posts of instagram user 				   | /insta magnumphotos		|
-| /hon			  		    | Get random Instagram post and start HotOrNot | /hon or /hotornot 			|
+| /hon			  		    | Get random Imgur r/models post and start HotOrNot | /hon or /hotornot 			|
 | /tw username              | Get tweets of twitter user 				   | /tw nasa					|
 | /tt country               | Get trending tags by country 				   | /tt India					|
 | /ts keyword               | Get latest tweets by keyword (Hashtag)	   | /ts #privacy				|

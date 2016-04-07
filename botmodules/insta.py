@@ -39,7 +39,7 @@ def insta(search_term):
 	   if (e.status_code == 404):
 	   	  return "Content not found."
 
-def insta_tag():
+def insta_hon():
 	returnval=''
 
 	api = InstagramAPI(access_token=ACCESS_TOKEN, client_secret=CLIENT_SECRET)
@@ -48,6 +48,31 @@ def insta_tag():
 		#if ' ' in search_term:
 		#	search_term = search_term.replace(' ', '')
 		search_term = 'selfie'
+		if not api.tag_search(search_term, 1):
+			print "No result found. :("
+		else:
+			recent_media, next_ = api.tag_recent_media(1, 20, search_term)
+			for media in recent_media:
+			   link = media.link
+			   returnval += ' '+link+' \n'
+
+			return returnval
+
+	except InstagramAPIError as e:
+	   if (e.status_code == 400):
+	      return "Cannot retrieve data. User is set to private."
+	   if (e.status_code == 404):
+	   	  return "Content not found."
+
+def insta_tag(search_tag):
+	returnval=''
+
+	api = InstagramAPI(access_token=ACCESS_TOKEN, client_secret=CLIENT_SECRET)
+
+	try:
+		#if ' ' in search_term:
+		#	search_term = search_term.replace(' ', '')
+		search_term = search_tag
 		if not api.tag_search(search_term, 1):
 			print "No result found. :("
 		else:

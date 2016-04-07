@@ -41,34 +41,33 @@ from botmodules.weather import weather
 from botmodules.youtube import youtube
 from botmodules.twitter import twitter,twittertrends,twittersearch
 from botmodules.bingsearch import bingsearch
-from botmodules.insta import insta,insta_tag
 from botmodules.github import gitfeed
 from botmodules.translate import btranslate
 from botmodules.calculate import calculate
+from botmodules.imgur import imgur_hon
 
 cat_API_key = config['thecatapi']['API_KEY']
 grabtoken = config['telegram']['token']
 
 bot = telegram.Bot(token=grabtoken.encode('utf8'))
 
-help="""lulzbot is a bot created by @bhavyanshu - https://github.com/bhavyanshu/lulzbot-telegram-bot 
+help="""lulzbot is a bot created by @bhavyanshu - https://github.com/bhavyanshu/lulzbot-telegram-bot
 \n
 1 /help Displays list of Commands /help \n
 2 /google keyword Google search by keyword /google terminator \n
 3 /wiki keyword Lookup for wikipedia article /wiki Anaconda \n
 4 /github username Get recent activity of user /github bhavyanshu \n
 5 /translate from to "strng" Microsoft translate /translate en hi "I'm good" \n
-6 /insta username Get posts of instagram user /insta magnumphotos \n
-7 /hon Get random Instagram post and start HotOrNot /hon or /hotornot \n
-8 /tw username Get tweets of twitter user /tw nasa \n
-9 /tt countryname , get trending topics by country, ex /tt india \n
-10 /ts #hashtag , get latest tweets by hashtag. ex /ts #Privacy \n
-11 /yt keyword string Search youtube for video /yt Iron Maiden \n
-12 /cats Get a random cat pic /cats \n
-13 /weather city,state Get weather update for city /weather paris \n
-14 /giphy keyword Get gif from giphy /gif awesome \n
-15 /img string, Get relevant image, /img give that man a cookie \n
-16 /calc expression Calculate math expressions /calc 2+2"""
+6 /hon Get random Instagram post and start HotOrNot /hon or /hotornot \n
+7 /tw username Get tweets of twitter user /tw nasa \n
+8 /tt countryname , get trending topics by country, ex /tt india \n
+9 /ts #hashtag , get latest tweets by hashtag. ex /ts #Privacy \n
+10 /yt keyword string Search youtube for video /yt Iron Maiden \n
+11 /cats Get a random cat pic /cats \n
+12 /weather city,state Get weather update for city /weather paris \n
+13 /giphy keyword Get gif from giphy /gif awesome \n
+14 /img string, Get relevant image, /img give that man a cookie \n
+15 /calc expression Calculate math expressions /calc 2+2"""
 
 try:
     LAST_UPDATE_ID = bot.getUpdates()[-1].update_id
@@ -100,7 +99,7 @@ def echo():
                     replacer = {'/youtube':'','/yt':''}
                     search_term = replace_all(message,replacer)
                     if len(search_term)<1:
-                       bot.sendMessage(chat_id=chat_id,text='Youtube API calls are costly. Use it like /yt keywords; Ex, /yt Iron Maiden') 
+                       bot.sendMessage(chat_id=chat_id,text='Youtube API calls are costly. Use it like /yt keywords; Ex, /yt Iron Maiden')
                     else:
                        bot.sendMessage(chat_id=chat_id,text=youtube(search_term).encode('utf8'))
 
@@ -131,19 +130,15 @@ def echo():
                 '''Instagram latest posts of user'''
                 if '/insta' in message or '/instagram' in message:
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
-                    replacer = {'/insta':'','/instagram':''}
-                    username = replace_all(message,replacer)
-                    if len(username)<1:
-                        bot.sendMessage(chat_id=chat_id,text='Use it like: /insta username; Ex, /insta randomuser')
-                    else:
-                        bot.sendMessage(chat_id=chat_id,text=insta(username).encode('utf8'))
+                    bot.sendMessage(chat_id=chat_id,text='Instagram has restricted API access. This will not work anymore. Sorry :(')
 
-                '''Instagram fetch by #selfie hashtag for game "Hot or Not" '''
+                '''Game "Hot or Not" '''
                 if '/hon' in message or '/hotornot' in message:
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
                     custom_keyboard = [[ telegram.Emoji.THUMBS_UP_SIGN, telegram.Emoji.THUMBS_DOWN_SIGN ]]
                     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard,resize_keyboard=True,one_time_keyboard=True)
-                    bot.sendMessage(chat_id=chat_id,text=insta_tag(),reply_markup=reply_markup)
+                    image = imgur_hon()
+                    bot.sendMessage(chat_id=chat_id,text='Fetched from Imgur Subreddit r/models : '+image, reply_markup=reply_markup)
 
                 '''Bing Image Search'''
                 if '/image' in message or '/img' in message:
@@ -161,13 +156,13 @@ def echo():
                     if not len(message_broken)<1:
                         if message_broken[0] == 'help':
                             help_string = """ Example, /translate en hi "Hello world"
-                                    ar-Arabic | bs-Latn-Bosnian (Latin) | bg-Bulgarian | ca-Catalan | zh-CHS-Chinese Simplified | 
+                                    ar-Arabic | bs-Latn-Bosnian (Latin) | bg-Bulgarian | ca-Catalan | zh-CHS-Chinese Simplified |
                                     zh-CHT-Chinese Traditional|hr-Croatian | cs-Czech | da-Danish | nl-Dutch |en-English | cy-Welsh |
-                                    et-Estonian | fi-Finnish | fr-French | de-German | el-Greek | ht-Haitian Creole | he-Hebrew | 
-                                    hi-Hindi | mww-Hmong Daw | hu-Hungarian | id-Indonesian | it-Italian | ja-Japanese | tlh-Klingon | 
+                                    et-Estonian | fi-Finnish | fr-French | de-German | el-Greek | ht-Haitian Creole | he-Hebrew |
+                                    hi-Hindi | mww-Hmong Daw | hu-Hungarian | id-Indonesian | it-Italian | ja-Japanese | tlh-Klingon |
                                     tlh - Qaak-Klingon (pIqaD) | ko-Korean | lv-Latvian | lt-Lithuanian | ms-Malay | mt-Maltese |
                                     no-Norwegian | fa-Persian | pl-Polish | pt-Portuguese | otq-Querétaro Otomi | ro-Romanian |
-                                    ru-Russian | sr-Cyrl-Serbian (Cyrillic) | sr-Latn-Serbian (Latin) | sk-Slovak | sl-Slovenian | 
+                                    ru-Russian | sr-Cyrl-Serbian (Cyrillic) | sr-Latn-Serbian (Latin) | sk-Slovak | sl-Slovenian |
                                     es-Spanish | sv-Swedish | th-Thai | tr-Turkish | uk-Ukrainian | ur-Urdu | vi-Vietnamese |
                                     """
                             bot.sendMessage(chat_id=chat_id,text=help_string)
@@ -198,7 +193,7 @@ def echo():
                     threadobjcats.start()
 
                 # Don't need an API key
-                
+
                 '''Google search'''
                 if '/google' in message:
                     bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.TYPING)
@@ -270,7 +265,7 @@ def echo():
 
                 # Updates global offset to get the new updates
                 LAST_UPDATE_ID = update.update_id
-    
+
 
 '''
 Support Utility methods go below
