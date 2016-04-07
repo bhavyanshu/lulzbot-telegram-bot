@@ -29,6 +29,8 @@
 
 > Note that some features of the actual bot @lulzbot registered on telegram will be missing from here. Like bot administration commands and commands meant for my own personal use. However, they do not break this code nor do they in any way affect the working on this code. They are completely unrelated modules. On request, I can explain how you can write bot administration commands for Telegram bot API.
 
+**As of April, I have removed instagram support because Instagram API is being too restrictive now. Hot or Not game is now using imgur r/models**
+
 ##Derive your own bot from this
 ------------------------------------
 1. First open data/config.ini file and add all the required API keys from various social media sites. For telegram token, contact @BotFather on telegram and create a new bot there. @BotFather will reply provide you the token once the bot is created.
